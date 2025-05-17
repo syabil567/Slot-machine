@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Slot Machine Game</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #222;
+      color: white;
+    }
+    .slot-machine {
+      margin-top: 100px;
+    }
+    .reels {
+      font-size: 5rem;
+      margin-bottom: 20px;
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      background-color: gold;
+      border: none;
+      cursor: pointer;
+    }
+    .balance {
+      margin-top: 20px;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="slot-machine">
+    <div class="reels" id="reels">🍒 🍋 🔔</div>
+    <button class="btn" onclick="spin()">Spin</button>
+    <div class="balance" id="balance">Balance: $100</div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const symbols = ["🍒", "🍋", "🔔", "⭐", "7", "🍉"];
+    let balance = 100;
+    const bet = 10;
+
+    function spin() {
+      if (balance < bet) {
+        document.getElementById("result").innerText = "Not enough balance!";
+        return;
+      }
+
+      balance -= bet;
+
+      const reel1 = symbols[Math.floor(Math.random() * symbols.length)];
+      const reel2 = symbols[Math.floor(Math.random() * symbols.length)];
+      const reel3 = symbols[Math.floor(Math.random() * symbols.length)];
+
+      document.getElementById("reels").innerText = `${reel1} ${reel2} ${reel3}`;
+      document.getElementById("balance").innerText = `Balance: $${balance}`;
+
+      if (reel1 === reel2 && reel2 === reel3) {
+        balance += 50;
+        document.getElementById("result").innerText = "You Win! +$50";
+      } else {
+        document.getElementById("result").innerText = "Try again!";
+      }
+
+      document.getElementById("balance").innerText = `Balance: $${balance}`;
+    }
+  </script>
+</body>
+</hhtml>
